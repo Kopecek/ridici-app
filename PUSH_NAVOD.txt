@@ -1,0 +1,72 @@
+DRIVEBOOK v17 – AUTOMATICKÁ PUSH OZNÁMENÍ
+
+CO JE PŘIPRAVENO
+Serverové odesílání web push, denní kontrola termínů, aktivace zařízení, test, vypnutí, synchronizace změn a servis podle kilometrů. Bez nastavení následujících služeb se žádná push oznámení neposílají. Ostatní funkce aplikace lze používat dál.
+
+1. ZÁLOHA A NASAZENÍ
+Ve starém Drivebooku exportuj zálohu. Rozbal celý ZIP. Nahraj CELÝ projekt do stejného projektu Vercel, včetně složek api a server, package.json, package-lock.json, sw.js, manifest.webmanifest a push-client.js. Samotný index.html už pro push nestačí.
+Framework Preset: Other. Root Directory: kořen projektu. Build Command: ponechat prázdné (bez buildu). Output Directory: kořen projektu / výchozí. Vercel musí nainstalovat závislosti z package.json a nasadit api jako funkce. Není nutné spouštět npm na telefonu. Pokud způsob nahrávání podporuje jen statické soubory, importuj projekt jako repozitář do Vercelu nebo použij Vercel CLI.
+Neměň veřejnou adresu aplikace; jiná adresa má jiné lokální údaje i push registraci.
+
+2. VYTVOŘ ÚLOŽIŠTĚ UPSTASH REDIS
+Otevři https://console.upstash.com/ a přihlas se. Vytvoř Redis databázi, ideálně v evropském regionu. V detailu databáze zkopíruj REST URL a REST Token. Vercel > projekt > Settings > Environment Variables:
+UPSTASH_REDIS_REST_URL = REST URL
+UPSTASH_REDIS_REST_TOKEN = REST Token s právem zápisu, nikoli Read Only
+Zvol Production. Tyto údaje nikomu neposílej a nevkládej do index.html.
+Použití služby se řídí jejími limity a tarifem. Projekt je určen pro malou osobní či rodinnou garáž; neslibuje neomezený bezplatný provoz.
+
+3. VYTVOŘ VAPID KLÍČE A SOUKROMÉ KÓDY
+Na nasazené adrese otevři /push-setup.html (například https://TVOJE-APLIKACE.vercel.app/push-setup.html).
+Zadej vlastní kontaktní e-mail a klepni Vytvořit klíče. Klíče se tvoří pouze v prohlížeči; stránka je neodesílá na server. Ulož je bezpečně, při obnovení stránky se nevydávají znovu stejné hodnoty.
+Postupně zkopíruj do Environment Variables na Vercelu:
+VAPID_PUBLIC_KEY
+VAPID_PRIVATE_KEY
+VAPID_SUBJECT (mailto:tvůj e-mail)
+CRON_SECRET
+PUSH_SETUP_CODE
+Dohromady máš sedm proměnných včetně dvou z Upstash.
+PUSH_SETUP_CODE si ulož: budeš jej zadávat při přihlášení telefonu. Nesdílej ho veřejně. Soukromý VAPID klíč a databázový token patří pouze do Vercelu.
+Pak Deployments > poslední deployment > Redeploy. Nové proměnné se projeví až v novém nasazení.
+Pokud už push funguje, VAPID klíče neměň, jinak se zařízení musí znovu přihlásit.
+
+4. ZAPNI OZNÁMENÍ NA IPHONU
+Otevři adresu v Safari > Sdílet > Přidat na plochu (otevírat jako webovou aplikaci). Spusť Drivebook z nové ikony. V Nastavení aplikace najdi Automatická push oznámení > Zapnout oznámení. Do pole Aktivační kód zadej PUSH_SETUP_CODE, potom klepni na Zapnout oznámení a v systémovém okně zvol Povolit.
+Vyžaduje podporovanou verzi iOS s web push; podpora začíná u iOS 16.4. Stav může ovlivnit Soustředění a nastavení oznámení telefonu.
+Na Androidu otevři v podporovaném prohlížeči, ideálně nainstaluj na plochu a povol oznámení.
+Každý telefon aktivuj samostatně. To nesdílí celou garáž mezi telefony.
+
+5. OTESTUJ DORUČENÍ
+Klepni Poslat zkušební oznámení. Ověř skutečné doručení na telefonu. Další test lze poslat nejdříve za minutu. Pro test zavřené aplikace klepni na test a ihned přejdi na plochu. Potvrzení serveru samo neznamená, že telefon oznámení zobrazil.
+Ve Vercelu > projekt > Cron Jobs zkontroluj /api/cron. Případné Run použij jen v přihlášeném rozhraní Vercelu. Nezveřejňuj CRON_SECRET v URL. Automatické cron úlohy se spouštějí v produkci.
+
+6. KDY CHODÍ UPOZORNĚNÍ
+Kontrola je jednou denně, plán 07:00 UTC (ráno v ČR); přesný okamžik doručení není garantovaný. Používá české datum a zvolené dny předstihu. Po termínu přijde jedno další upozornění, ne opakovaný denní spam. Kilometrové upozornění používá naposledy zadaný tachometr: telefon kilometry sám neměří.
+Změny a smazání záznamů se při povolených oznámeních odešlou po uložení. Při výpadku internetu se zkusí odeslat po návratu připojení. V Nastavení ověř stav Termíny úspěšně aktualizované; lze klepnout Aktualizovat termíny. Do té doby server používá předchozí údaje.
+Připomínky vypnuté u konkrétního záznamu se nepřenášejí. Po novém servisu se neposílá stará historie stejného úkonu.
+
+7. SOUKROMÍ A VYPNUTÍ
+Do Upstash se posílá technická push adresa zařízení, názvy vozidel a termínů, data a tachometr. Žádné VIN, SPZ, fotografie, smlouvy ani přílohy. Text oznámení může být vidět na zamčeném telefonu – uprav náhledy v systémovém nastavení, pokud nechceš názvy zobrazovat.
+Vypnout oznámení odstraní registraci a termíny zařízení ze serveru. Smazání prohlížeče samo serverovou registraci neodstraní; nepoužívané registrace může vlastník odstranit v Upstash, kde mají prefix drivebook:v17:. Po úplném resetu je nutná nová aktivace. Jednorázové klíče proti duplicitám mají omezenou platnost.
+
+8. KDYŽ TO NEJDE
+Server není připraven: doplň sedm proměnných a proveď Redeploy.
+API vrací stránku nebo 404: nebyly nasazeny serverové funkce, zkontroluj celý projekt a Framework Other.
+Zařízení nepodporuje oznámení: na iPhonu aplikaci přidej na plochu a otevři z ikony, případně aktualizuj iOS.
+Nesprávný kód: použij přesný PUSH_SETUP_CODE z produkčních proměnných.
+Test nedorazí: ověř oznámení, Soustředění, internet a Vercel Logs. Nikdy nesdílej neveřejné klíče ve screenshotu.
+Cron nemá oprávnění: zkontroluj CRON_SECRET v Production, Redeploy a nastavení Cron Jobs.
+
+TECHNICKÉ PODKLADY
+https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/
+https://vercel.com/docs/cron-jobs/manage-cron-jobs
+https://vercel.com/docs/cron-jobs/usage-and-pricing
+https://upstash.com/docs/redis/features/restapi
+https://github.com/web-push-libs/web-push
+
+Projekt byl ověřen lokálními testy logiky. Doručení na konkrétní telefon a skutečné služby musí být ověřeno po nasazení a konfiguraci uživatelem.
+
+OPRAVA v22 – iPhone
+Aktivační kód se nyní zadává do běžného pole před klepnutím na tlačítko. Žádost o oprávnění se volá přímo při klepnutí bez mezilehlého vyskakovacího okna.
+Nahraj celý projekt do STEJNÉHO projektu Vercel. Ponech původní proměnné prostředí i adresu. Nemaž aplikaci ani data garáže.
+Po nasazení zavři a znovu otevři aplikaci z plochy. V panelu oznámení ověř text Verze opravy: 22. Vyplň kód, klepni Zapnout oznámení, zvol Povolit a pak Poslat zkušební oznámení.
+Skutečné doručení musí být ověřeno na telefonu; automatické testy nenahrazují test iOS.

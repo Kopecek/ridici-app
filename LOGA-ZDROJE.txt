@@ -1,0 +1,7 @@
+BMW: dodaný soubor IMG_3466.jpeg
+Škoda: dodaný soubor IMG_3467.png
+Hyundai: dodaný soubor IMG_3468.jpeg
+Honda motorka: dodaný soubor IMG_3469.jpeg
+Honda auto: https://github.com/filippofilip95/car-logos-dataset/tree/master/logos/optimized
+Suzuki: dodaný soubor IMG_3471.png
+Volkswagen: dodaný soubor IMG_3470.jpeg

@@ -1,0 +1,8 @@
+Drivebook v24 – TEST
+
+1. Nejdříve ve Firebase publikuj pravidla pro /users/{userId}/{document=**}.
+2. ZIP nahraj jako NOVÝ projekt na Vercel.
+3. Přihlas se nebo vytvoř účet; na druhém zařízení použij stejný účet.
+4. Testuj nejprve bez citlivých dokumentů.
+
+UPOZORNĚNÍ: Firestore limit 1 MiB na dokument. Tato testovací verze ukládá celou garáž do jednoho dokumentu a při překročení 850 kB synchronizaci odmítne. Fotografie/doklady je nutné v produkční verzi přesunout do Cloud Storage. Synchronizace více souběžných úprav není konfliktně bezpečná. Push server není součástí Firebase synchronizace.

@@ -1,0 +1,31 @@
+DRIVEBOOK v23 — NOVÁ VERZE PRO VERCEL
+===================================
+
+CO JE HOTOVÉ
+- Aplikace obsahuje evidenci aut, motorek a přívěsů.
+- Doklady, STK, pojištění, servis, palivo, roční náklady a plánování cest.
+- Lokální uložení dat a export/import zálohy.
+- Webová aplikace přidatelná na plochu iPhonu.
+- Push API, service worker a denní kontrola termínů.
+
+DŮLEŽITÉ K OZNÁMENÍM
+Automatické push oznámení nelze bezpečně zprovoznit pouze nahráním ZIPu.
+Je potřeba nastavit Upstash Redis a VAPID klíče na serveru Vercel.
+Klíče nesmí být veřejně vložené do kódu aplikace.
+
+1. Nahraj tento ZIP jako NOVÝ projekt na Vercel.
+2. Otevři https://ADRESA-TVE-APLIKACE.vercel.app/push-setup.html.
+3. Stránka umí vytvořit nový pár VAPID klíčů. Zkopíruj oba do
+   Settings > Environment Variables > Production.
+4. Přidej UPSTASH_REDIS_REST_URL a UPSTASH_REDIS_REST_TOKEN ze stejné
+   databáze Upstash (hodnoty jsou tajné; neposílej screenshoty).
+5. Doplň VAPID_SUBJECT, CRON_SECRET a PUSH_SETUP_CODE dle stránky.
+6. Proveď Redeploy, aby Vercel načetl nové proměnné.
+7. V Safari přidej aplikaci na plochu, spusť z ikony, zapni oznámení.
+8. Proveď test přes tlačítko Poslat zkušební oznámení.
+
+UPOZORNĚNÍ
+- Denní cron používá plán 07:00 UTC; skutečné doručení může mít zpoždění.
+- Přístupový token Upstash z dřívějšího screenshotu je nutné obnovit.
+- Záloha starší verze se obnovuje přes Nastavení > Obnovit ze zálohy JSON.
+- Pokud nainstaluješ novou verzi na jiné doméně, data se automaticky nepřenesou.

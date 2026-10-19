@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "crons": [
+    {
+      "path": "/api/cron",
+      "schedule": "0 7 * * *"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "api/cron.js": {
+      "maxDuration": 60
+    }
+  }
+}

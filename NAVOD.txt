@@ -1,0 +1,28 @@
+DRIVEBOOK v18
+
+Rozbalte ZIP a nahrajte obsah do stejného projektu Vercel (Framework Other, bez build příkazu). Data zůstávají uložená ve stejném prohlížeči a na stejné adrese.
+
+Nastavení: tmavý, světlý nebo barevný režim, paleta 10 barev a libovolný vlastní odstín.
+Moje garáž: VIN je viditelný na kartě. Přes Upravit doplníte VIN, SPZ, karoserii a fotku. Na kartě jsou tlačítka STK, Pojistka, Zelená karta a Olej a filtry.
+Doklady a termíny: vyberte vozidlo a konkrétní typ dokladu, zadejte platnost a přílohu.
+Servis a péče: zaznamenejte olej, množství, normu, vyměněné filtry, datum, tachometr, cenu a další termín či kilometry.
+Nastavení > Upozornění a mobilní kalendář: vyberte předstih dní a kilometrů. Termíny lze exportovat do .ics a importovat do podporovaného kalendáře telefonu. Ověřte upozornění v kalendáři; chování importu se liší podle zařízení a kalendáře. Po změně termínu aktualizujte kalendář. Drivebook nemá samostatné push notifikace na pozadí.
+Data se nesynchronizují mezi telefony. Pravidelně exportujte zálohu v Nastavení.
+
+SPZ a VIN z fotografie: Moje garáž > Upravit > SPZ/VIN z fotografie. Povolte fotoaparát, pořiďte ostrý detail, vyčkejte na čtení, opravte rozpoznaný údaj, potvrďte zápis a poté Uložit vozidlo. OCR potřebuje internet pro načtení modulu a jazykových dat; rozpoznávání probíhá v prohlížeči. Přesnost není zaručena. VIN se kontroluje na délku 17 znaků, nikoliv proti registru vozidel. Fotky dokladů se tímto krokem samostatně neukládají.
+
+CNG: Moje garáž > Upravit > Palivo/pohon > CNG. Tankování se zadává v kg, cena za kg se vypočte z celkové ceny a množství. Spotřeba je kg/100 km, náklady Kč/km a Kč/100 km. Výpočet vyžaduje dvě plná tankování. Starší záznamy bez jednotky jsou považovány za litry a do CNG spotřeby se nemíchají. Při úpravě starého tankování ověřte množství a jednotku. K dispozici jsou také benzín, nafta, LPG a elektřina (kWh); podporován je jeden zvolený typ paliva na vozidlo.
+
+Ceny paliv: při tankování zadejte množství a cenu za jednotku, celková cena se dopočte. Nebo zadejte množství a celkovou cenu a dopočte se cena za jednotku. Zapište i čerpací stanici. Sekce Palivo ukáže tři poslední ceny z vašich záznamů. Živé ceníky stanic nejsou napojené.
+
+Pozadí: Nastavení > Pozadí aplikace. Vyberte odstín nebo vložte fotku. Fotku lze odebrat a vše vrátit na výchozí stav.
+Červené zvýraznění: karta vozidla a přehled upozorní na prošlou STK a na servis oleje či filtrů po datu nebo při dosažení kilometrového intervalu. Pro každý druh servisu rozhoduje nejnovější záznam; stará historie sama neudržuje červené varování po novém servisu. Vyplňte datum dalšího servisu nebo Příští servis při km a udržujte tachometr aktuální. Bez těchto údajů nelze překročení vyhodnotit. STK je platná i v den konce platnosti, červená je od dalšího dne.
+
+Olej a filtry: časový interval je předvyplněn na 12 měsíců (1 rok). Kilometrový interval vyplňte podle vozidla. Z data a tachometru při výměně se dopočte další termín a stav km. Červené upozornění se objeví při dosažení kteréhokoliv limitu, i když druhý ještě nenastal. STK je platná do konce uvedeného dne.
+
+Sdílet aplikaci: tlačítko v horní liště otevře systémové sdílení odkazu, případně ho zkopíruje. Sdílí se adresa aplikace bez parametrů a bez dat garáže. Každý uživatel má nadále vlastní lokální data.
+Kalendář: u dokladu či servisu s termínem je Google Kalendář (předvyplněná událost; před uložením nastavte oznámení) a Kalendář telefonu (.ics). Na podporovaném telefonu se nabídne sdílení souboru, jinak stažení. Import do kalendáře závisí na zařízení. Připomínky se neodesílají automaticky z Drivebooku, ale z kalendáře po jeho nastavení. Propojení je jednorázový přenos; změny a smazání se musí promítnout v kalendáři ručně. Kilometrový interval nelze načasovat do kalendáře bez známého data.
+
+AUTOMATICKÉ PUSH NOTIFIKACE: nová verze má serverový backend a potřebuje celé nasazení včetně API a sedmi proměnných. Pokračujte podle PUSH_NAVOD.txt. Kalendář funguje i bez push konfigurace. Po aktivaci služby ověřte skutečné doručení testu na telefonu.
+
+Verze 18: větší nápis Drivebook, vlastní vektorové logo knihy s cestou a zvýrazněná dlaždicová navigace bez znaků před názvy. Na mobilu jsou všechny sekce viditelné ve dvou sloupcích. Nastavení je přes celou šířku. Barevné ladění se řídí zvolenou hlavní barvou.

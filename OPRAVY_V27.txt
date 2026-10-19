@@ -1,0 +1,7 @@
+DRIVEBOOK v27 – oprava push diagnostiky a registrace
+
+1. /api/push nyní vždy skutečně ověřuje připojení Redis, pokud jsou nastaveny všechny proměnné; stav ready už neznamená pouze existenci proměnných.
+2. Při zapnutí oznámení se porovná VAPID klíč uloženého odběru s aktuálním veřejným klíčem. Při změně klíče se starý odběr odhlásí a založí nový.
+3. Označení verze v panelu oznámení aktualizováno na v27.
+
+DŮLEŽITÉ: Tato oprava sama nevytvoří sedm proměnných Vercel ani databázi Upstash. Klíče musí být správně nastaveny; skutečné doručení na iPhone zatím nebylo ověřeno. Původní data aplikace ani obsah garáže tato úprava nemaže.

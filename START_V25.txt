@@ -1,0 +1,7 @@
+Drivebook v25 – nastavení push upozornění
+
+Nově: výchozí předstih 30, 14, 7, 1, 0 dní; kategorie STK, pojištění, servis a ostatní; e-mailové notifikace nejsou zapnuté.
+
+Push backend je převzatý z v24. Skutečné doručování vyžaduje nakonfigurovat 7 Vercel Environment Variables dle PUSH_NAVOD.txt, nasadit celý projekt, aktivovat push na každém zařízení a ověřit test.
+
+UPOZORNĚNÍ: ZIP zatím nenasazujte místo stávající v24 bez zálohy a kontroly konfigurace.

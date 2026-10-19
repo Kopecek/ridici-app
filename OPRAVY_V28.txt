@@ -1,0 +1,16 @@
+Drivebook v28 – ochrana dat při synchronizaci
+
+Opravy cloud.js:
+- První přihlášení nabídne převod místní garáže místo jejího vymazání.
+- Před nahrazením dat se uloží místní kopie do klíče drivebook-cloud-backup.
+- Změny během ukládání se odešlou po dokončení předchozího zápisu.
+- Neodeslané změny chráníme před přepsáním příchozím cloudovým snímkem.
+- Načtení změn z jiného zařízení aktualizuje plán push oznámení.
+- Odhlášení oddělí rozpracované ukládání od dalšího účtu.
+
+Ověření: npm test – 15 úspěšných testů, z toho 6 nových testů synchronizace.
+Skutečné doručení push na iPhone ani nastavení produkčního Firebase nebylo ověřeno.
+Souběžné úpravy na více telefonech stále používají poslední zápis celého dokumentu.
+
+GitHub odmítl zápis větve (403 Resource not accessible by integration).
+Tento ZIP obsahuje kompletní aplikaci. Pro GitHub nahrajte jeho rozbalený obsah.
